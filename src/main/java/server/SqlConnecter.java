@@ -6,10 +6,8 @@
 package server;
 
 import java.beans.Statement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -17,28 +15,84 @@ import java.sql.SQLException;
  */
 public class SqlConnecter {
     Connection con;
-    Statement stmt;
+    PreparedStatement stmt;
     String userName;
     String password;
     String url;
+    String database;
+    String sqlCode;
     
     
-    public SqlConnecter() throws SQLException, ClassNotFoundException 
+    public SqlConnecter()  
     {
-        this.userName = "username";
-        this.password = "password";
-        this.url = "jdbc:sqlserver://MYPC\\SQLEXPRESS;databaseName=MYDB";
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        this.con = DriverManager.getConnection(url, userName, password);
-        this.stmt = (Statement) con.createStatement();
+        this.userName = "epiz_22050198";
+        this.password = "x3UkX8zPws5c";
+        this.url = "jdbc:mysql://sql107.epizy.com/epiz_22050198_stocks";
+        this.database = "epiz_22050198_stocks";
+        try
+        {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        }
+        catch(ClassNotFoundException c)
+        {
+            System.err.println("class not found: " + c.getMessage());
+        }
+        try
+        {
+            this.con = DriverManager.getConnection(url, userName, password);
+            this.stmt = (PreparedStatement) con.createStatement();
+        }
+        catch(SQLException e)
+        {
+            System.err.println("SQL connection failed: " + e.getMessage());
+        }
+//        this.sqlCode = "CREATE TABLE IF NOT EXISTS users(\n"
+//                + "	id integer PRIMARY KEY AUTO_INCREMENT,\n"
+//                + "	name text NOT NULL,\n"
+//                + "	password text NOT NULL,\n"
+//                + ");";
+//        this.stmt.execute(sqlCode);
+//        this.sqlCode = "CREATE TABLE IF NOT EXISTS stock(\n"
+//                + "	id integer PRIMARY KEY AUTO_INCREMENT,\n"
+//                + "	cost integer NOT NULL,\n"
+//                + "	name text NOT NULL,\n"
+//                + "	ticker text NOT NULL,\n"
+//                + ");";
+//        this.stmt.execute(sqlCode);
     }
     
-    public void insertData()
+    public void insertData(String name, String ticker, int cost)
+    {
+        String insert = "INSERT INTO  `epiz_22050198_stocks`.`stock` (`id` ,`cost` , `name`, 'ticker') VALUES (NULL ,  '"+ cost +"', '"+ name +"', '"+ ticker +"')";
+        try
+        {
+            this.stmt.execute(insert);
+        }
+        catch(SQLException e)
+        {
+            System.err.println("SQL insert failed: " + e.getMessage());
+        }
+    }
+    
+    public void insertUser(String username, String password)
+    {
+        String insert = "INSERT INTO  `epiz_22050198_stocks`.`users` (`id` ,`username` , `password`) VALUES (NULL ,  '"+ username +"', '"+ password +"')";
+        try
+        {
+            this.stmt.execute(insert);
+        }
+        catch(SQLException e)
+        {
+            System.err.println("SQL insert failed: " + e.getMessage());
+        }
+    }
+    
+    public void getData()
     {
         
     }
     
-    public void getData()
+    public void getPassword()
     {
         
     }
