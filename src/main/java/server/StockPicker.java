@@ -6,50 +6,88 @@
 package server;
 import java.net.*;
 import java.io.*;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+
+
+
 /**
  *
  * @author dexter
  */
 public class StockPicker 
 {
+    double price = -1;
     //---------------------------------------------------------------------------------
     //returns a -1 on failure
     public double getStockPrice (String symbol) throws Exception
     {
+        
+        ////convert to json////
+        
         //set the address
         URL address;
         address = new URL("https://finance.yahoo.com/quote/" + symbol);
         BufferedReader in = new BufferedReader(new InputStreamReader(address.openStream()));
-        
         //get the input from the page
         // format <title>AAPL 191.61 0.17 0.09% : Apple Inc. - Yahoo Finance</title>
         String inputLine;
-        String tag;
-        double price = -1;
+        String tag = "";
         
+        int start = 0;
+        int stop = 0;
+
         while ((inputLine = in.readLine()) != null)
         {
-            //error checking
-            if (inputLine.length() < 6)
+            //grab line
+            start = inputLine.indexOf("<span class=\"Trsdu");
+            if (start == -1)
             {
                 continue;
             }
-            if (inputLine.equalsIgnoreCase ("<title></title>"))
-            {
-                System.out.println ("Not a valid stock symbol");
-                return -1;                        
-            }
+            stop = start + 100;
             
-            //logic for each line
-            tag = inputLine.substring(0,6);
-            if (tag.equalsIgnoreCase("<title>"))
+            inputLine = inputLine.substring(start, stop);
+                        
+            //refine capture
+            start = inputLine.indexOf(">") +1;
+            stop = inputLine.indexOf("<",start);
+            inputLine = inputLine.substring(start, stop);
+            
+            inputLine = inputLine.replace(",", "");
+//            //remove comma
+//            for (int i = 0; i < inputLine.length(); i++)
+//            {
+//                if (inputLine.charAt(i) == ',')
+//                {
+//                    inputLine.replace('', 0);
+//                }
+//            }
+            
+            try
             {
-                price = parseToDouble (inputLine);
+                price = Double.parseDouble(inputLine);
+            }
+            catch (NumberFormatException e)
+            {
+                System.out.println ("error in parsing double");
+                return -1;
+            }
+            //price = parseToDouble (inputLine);
+            if (price != -1)
+            {
                 break;
+            }
+            if (price == 0)
+            {
+                //symbol not found
+                price = -1;
             }
         }
         in.close();
         
+
         return price;
     }
     //-----------------------------------------------------------------------------
@@ -78,7 +116,7 @@ public class StockPicker
         
         if (start == 0 && end == 0)
         {
-            System.out.println ("The input " + toParse + "did not contain a valid number");
+            //System.out.println ("The input " + toParse + "did not contain a valid number");
             return -1;
         }
         
