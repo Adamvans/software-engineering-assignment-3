@@ -6,9 +6,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>SE_A2</title>
     <meta name="description" content="" />
+    <script>
+        var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
+        
+        function start() 
+        {
+           socket.send("page");
+        }
+    </script>
   </head>
   <body class="">
     <h1>Congratulations! SE_A2 is ALIVE!</h1>
     <h2>You just created a Java Spring web application.</h2>
+    <button onclick="test())">test</button>
   </body>
 </html>
