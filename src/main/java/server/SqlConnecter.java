@@ -31,11 +31,12 @@ public class SqlConnecter {
         this.database = "epiz_22050198_stocks";
         try
         {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("java.sql.Driver");
         }
         catch(ClassNotFoundException c)
         {
-            System.err.println("class not found: " + c.getMessage());
+            String error = "class not found: " + c.getMessage();
+            System.err.println(error);
         }
         try
         {
@@ -44,7 +45,8 @@ public class SqlConnecter {
         }
         catch(SQLException e)
         {
-            System.err.println("SQL connection failed: " + e.getMessage());
+            String error = "SQL connection failed: " + e.getMessage();
+            System.err.println(error);
         }
 //        this.sqlCode = "CREATE TABLE IF NOT EXISTS users(\n"
 //                + "	id integer PRIMARY KEY AUTO_INCREMENT,\n"
