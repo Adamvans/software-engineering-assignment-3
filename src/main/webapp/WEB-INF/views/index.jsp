@@ -16,8 +16,9 @@
     </script>
   </head>
   <body class="">
-    <h1>Congratulations! SE_A2 is ALIVE!</h1>
-    <h2>You just created a Java Spring web application.</h2>
-    <button onclick="test())">test</button>
+    <h1>Welcome to the Stock Tracker</h1>
+    <h2>Please select if you are a new or returning user</h2>
+    <button onclick="location.href = 'LoginForm.jsp';">Login / Returning User</button>
+    <button onclick="location.href = 'NewUser.jsp';">Register / New User</button>
   </body>
 </html>
