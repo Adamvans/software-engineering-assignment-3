@@ -25,10 +25,10 @@ public class SqlConnecter {
     
     public SqlConnecter()  
     {
-        this.userName = "epiz_22050198";
-        this.password = "x3UkX8zPws5c";
-        this.url = "jdbc:mysql://sql107.epizy.com/epiz_22050198_stocks";
-        this.database = "epiz_22050198_stocks";
+        this.userName = "Dexter";
+        this.password = "Summer2018WSU";
+        this.url = "jdbc:mysql://wsu-se3.cwmnujax20hi.us-east-2.rds.amazonaws.com";
+        this.database = "StockPicker";
         try
         {
             Class.forName("java.sql.Driver");
