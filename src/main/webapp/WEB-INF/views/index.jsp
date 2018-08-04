@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>SE_A2</title>
+    <title>SE_A3</title>
     <meta name="description" content="" />
     <script>
         var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
@@ -12,6 +12,11 @@
         function start() 
         {
            socket.send("page");
+        }
+        
+        function loginPage()
+        {
+            
         }
     </script>
   </head>
