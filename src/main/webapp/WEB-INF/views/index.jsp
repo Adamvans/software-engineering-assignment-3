@@ -9,8 +9,14 @@
     <script>
         var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
         
-        function start() 
+        socket.onmessage = function (event)  
         {
+            document.getElementById("answer").value += "</br>" + event;
+        }
+        
+        function test() 
+        {
+           document.getElementById("answer").value = "sending";
            socket.send("page");
         }
         
@@ -18,6 +24,7 @@
         {
             
         }
+        
     </script>
   </head>
   <body class="">
@@ -27,5 +34,7 @@
     <br/>
     <br/>
     <a href="${pageContext.request.contextPath}/pages/LoginForm.jsp" >Returning User</a>
+    <button onclick="test())">test</button>
+    <h2><span id = "answer"></span></h2>
   </body>
 </html>
