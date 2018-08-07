@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>SE_A2</title>
+    <title>SE_A3</title>
     <meta name="description" content="" />
     <script>
         var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
@@ -13,12 +13,17 @@
         {
            socket.send("page");
         }
+        
+        function loginPage()
+        {
+            
+        }
     </script>
   </head>
   <body class="">
     <h1>Welcome to the Stock Tracker</h1>
     <h2>Please select if you are a new or returning user</h2>
-    <button onclick="location.href = 'LoginForm.jsp';">Login / Returning User</button>
-    <button onclick="location.href = 'NewUser.jsp';">Register / New User</button>
+    <a href="${pageContext.request.contextPath}/pages/NewUser.jsp" >New User</a>
+    <a href="${pageContext.request.contextPath}/pages/LoginForm.jsp" >Returning User</a>
   </body>
 </html>
