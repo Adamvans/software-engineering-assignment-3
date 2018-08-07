@@ -18,20 +18,24 @@ public class SqlConnecter {
     PreparedStatement stmt;
     String userName;
     String password;
+    String hostname;
+    String dbName;
+    String port;
     String url;
-    String database;
     String sqlCode;
     
     
     public SqlConnecter()  
     {
-        this.userName = "epiz_22050198";
-        this.password = "x3UkX8zPws5c";
-        this.url = "jdbc:mysql://sql107.epizy.com/epiz_22050198_stocks";
-        this.database = "epiz_22050198_stocks";
+        this.userName = "dexter";
+        this.password = "Summer2018WSU";
+        this.hostname = "jdbc:mysql:wsu-se3.cwmnujax20hi.us-east-2.rds.amazonaws.com";
+        this.dbName = "stockpicker";
+        this.port = "3306";
+        this.url =  "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password=" + password;
         try
         {
-            Class.forName("java.sql.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
         }
         catch(ClassNotFoundException c)
         {
@@ -40,7 +44,7 @@ public class SqlConnecter {
         }
         try
         {
-            this.con = DriverManager.getConnection(url, userName, password);
+            this.con = DriverManager.getConnection(url);
             this.stmt = (PreparedStatement) con.createStatement();
         }
         catch(SQLException e)
@@ -48,13 +52,13 @@ public class SqlConnecter {
             String error = "SQL connection failed: " + e.getMessage();
             System.err.println(error);
         }
-//        this.sqlCode = "CREATE TABLE IF NOT EXISTS users(\n"
+//        this.sqlCode = "CREATE TABLE IF NOT EXISTS stockpicker.users(\n"
 //                + "	id integer PRIMARY KEY AUTO_INCREMENT,\n"
 //                + "	name text NOT NULL,\n"
 //                + "	password text NOT NULL,\n"
 //                + ");";
 //        this.stmt.execute(sqlCode);
-//        this.sqlCode = "CREATE TABLE IF NOT EXISTS stock(\n"
+//        this.sqlCode = "CREATE TABLE IF NOT EXISTS stockpicker.stock(\n"
 //                + "	id integer PRIMARY KEY AUTO_INCREMENT,\n"
 //                + "	cost integer NOT NULL,\n"
 //                + "	name text NOT NULL,\n"
