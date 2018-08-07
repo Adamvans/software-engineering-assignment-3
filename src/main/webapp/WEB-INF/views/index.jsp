@@ -23,7 +23,7 @@
   <body class="">
     <h1>Welcome to the Stock Tracker</h1>
     <h2>Please select if you are a new or returning user</h2>
-    <button onclick="location.href = 'LoginForm.jsp';">Login / Returning User</button>
-    <button onclick="location.href = 'NewUser.jsp';">Register / New User</button>
+    <a href="${pageContext.request.contextPath}/pages/NewUser.jsp" >New User</a>
+    <a href="${pageContext.request.contextPath}/pages/LoginForm.jsp" >Returning User</a>
   </body>
 </html>
