@@ -17,9 +17,9 @@ import javax.websocket.server.ServerEndpoint;
  */
 @ServerEndpoint("/server")
 public class Socket {
-    SqlConnecter conn = new SqlConnecter();
+    SqlConnecter conn;
     
-    public Socket(){}
+    public Socket(){this.conn = new SqlConnecter();}
     
     @OnOpen
     public void open(Session session) 
