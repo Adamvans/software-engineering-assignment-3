@@ -9,16 +9,23 @@
         <script>	
                 function hashPass()
                 {
-                        var userName = document.getElementById ("uname").value;
-                        var password = document.getElementById ("pass").value;
+                    var userName = document.getElementById ("uname").value;
+                    var password = document.getElementById ("pass").value;
 
-                        var shaObj = new jsSHA("SHA-256", "TEXT");
-                shaObj.update(password);
-                var hash = shaObj.getHash("HEX");
+                    var shaObj = new jsSHA("SHA-256", "TEXT");
+                    shaObj.update(password);
+                    var hash = shaObj.getHash("HEX");
 
-                        document.getElementById("pass").value = hash;
+                    document.getElementById("pass").value = hash;
 
-                        return ok
+                    return ok
+                }
+                
+                function login (userName)
+                {
+                    document.cookie = "username=" + userName;
+                    
+                    document.getElementById('redirect').innerHTML = "<a href=\"${pageContext.request.contextPath}/pages/MainPage.jsp\" ><h3>Login Successful. Click to continue</h3></a>";
                 }
         </script>
     </head>
@@ -36,6 +43,11 @@
                 <br/>
                 <br/>
                 <button type="submit">Login</button>
+            </div>
+            
+            <div id ="redirect">
+                
+                
             </div>
 	</form>
     </body>
