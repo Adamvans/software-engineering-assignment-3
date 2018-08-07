@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>SE_A2</title>
+    <title>SE_A3</title>
     <meta name="description" content="" />
     <script>
         var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
@@ -20,11 +20,19 @@
            socket.send("page");
         }
         
+        function loginPage()
+        {
+            
+        }
     </script>
   </head>
   <body class="">
-    <h1>Congratulations! SE_A2 is ALIVE!</h1>
-    <h2>You just created a Java Spring web application.</h2>
+    <h1>Welcome to the Stock Tracker</h1>
+    <h2>Please select if you are a new or returning user</h2>
+    <a href="${pageContext.request.contextPath}/pages/NewUser.jsp" >New User</a>
+    <br/>
+    <br/>
+    <a href="${pageContext.request.contextPath}/pages/LoginForm.jsp" >Returning User</a>
     <button onclick="test())">test</button>
     <h2><span id = "answer"></span></h2>
   </body>

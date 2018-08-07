@@ -1,11 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.aws.codestar.projecttemplates</groupId>
     <artifactId>HelloWorld</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
-    <name>Sample Spring MVC Application Using AWS CodeStar</name>
+    <name>StockPicker</name>
 
     <properties>
         <junit.platform.version>1.0.1</junit.platform.version>
@@ -87,6 +87,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.12</version>
         </dependency>   
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -121,6 +126,14 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <servlet>
+     <servlet-name>LoginForm</servlet-name>
+     <jsp-file>LoginForm.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+         <servlet-name>LoginForm</servlet-name>
+         <url-pattern>/LoginFormJsp</url-pattern>
+    </servlet-mapping>
         <finalName>ROOT</finalName>
     </build>
 </project>
