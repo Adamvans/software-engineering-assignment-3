@@ -9,15 +9,23 @@
     <script>
         var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
         
-        function start() 
+        socket.onmessage = function (event)  
         {
+            document.getElementById("answer").value += "</br>" + event;
+        }
+        
+        function test() 
+        {
+           document.getElementById("answer").value = "sending";
            socket.send("page");
         }
+        
     </script>
   </head>
   <body class="">
     <h1>Congratulations! SE_A2 is ALIVE!</h1>
     <h2>You just created a Java Spring web application.</h2>
     <button onclick="test())">test</button>
+    <h2><span id = "answer"></span></h2>
   </body>
 </html>
