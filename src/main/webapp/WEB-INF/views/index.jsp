@@ -10,9 +10,15 @@
     <script>
         var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
         
-        function start() 
+        socket.onmessage = function (event)  
         {
-           socket.send("page");
+            document.getElementById("answer").innerHTML += "<br>" + event;
+        }
+        
+        function test() 
+        {
+           document.getElementById("answer").innerHTML  += "<br>"+ "sending";
+           socket.send("frompage");
         }
         
         
@@ -41,5 +47,7 @@
     <h2>Please select if you are a new or returning user</h2>
     <a href="${pageContext.request.contextPath}/pages/NewUser.jsp" >New User</a>
     <a href="${pageContext.request.contextPath}/pages/LoginForm.jsp" >Returning User</a>
+    <br/>
+    <h2><span id = "answer"></span></h2>
   </body>
 </html>

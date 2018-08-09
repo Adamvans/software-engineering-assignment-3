@@ -17,14 +17,14 @@ import javax.websocket.server.ServerEndpoint;
  */
 @ServerEndpoint("/server")
 public class Socket {
-    SqlConnecter conn = new SqlConnecter();
+    SqlConnecter conn;
     
-    public Socket(){}
+    public Socket(){this.conn = new SqlConnecter();}
     
     @OnOpen
     public void open(Session session) 
     {  
-       conn.insertUser("testuser", "testpassword");
+        conn.insertData("this is a", "test", 500);
     }
     
     @OnClose
@@ -42,6 +42,6 @@ public class Socket {
     @OnMessage
     public void handleMessage(String message, Session session) throws IOException 
     {
-        conn.insertUser(message, message);
+        
     }
 }
