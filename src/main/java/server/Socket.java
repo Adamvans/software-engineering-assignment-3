@@ -24,7 +24,7 @@ public class Socket {
     @OnOpen
     public void open(Session session) 
     {  
-        conn.insertData("this is a", "test", 500);
+        
     }
     
     @OnClose
