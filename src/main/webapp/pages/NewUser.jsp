@@ -62,8 +62,6 @@
     </style>
     </head>
     <body>
-        <form onsubmit="login()"action="/login.php" method = "post">
-	
             <div class="container">
                 <h1>Please enter your username and password to create an account</h1>
                 <label for="uname"><b>Username</b></label>
@@ -74,13 +72,12 @@
                 <input type="password" placeholder="Enter Password" name="pass" id="pass" required>
                 <br/>
                 <br/>
-                <button type="submit">Login</button>
+                <input id = "submitButton" type="button" value="Submit" onclick="login()">
                 <br/>
             </div>
             <div id ="redirect">
                 
                 
             </div>
-	</form>
     </body>
 </html>
