@@ -93,7 +93,7 @@ public class SqlConnecter {
     
     public void insertData(String name, String ticker, int cost)
     {
-        String insert = "INSERT INTO  "+ this.dbName +".stock (id ,cost , name, ticker) VALUES (NULL ,  "+ cost +", "+ name +", "+ ticker +")";
+        String insert = "INSERT INTO  "+ this.dbName +".stock VALUES (NULL ,  '"+ cost +"', '"+ name +"', '"+ ticker +"')";
         try
         {
             this.stmt.execute(insert);
@@ -136,7 +136,7 @@ public class SqlConnecter {
     
     public JsonObject getPassword(String user)
     {
-        String get = "SELECT * FROM "+ this.dbName +".`users` WHERE username="+user;
+        String get = "SELECT * FROM "+ this.dbName +".users WHERE name = '"+user+"'";
         try
         {
             this.rs = this.stmt.executeQuery(get);
