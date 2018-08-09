@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>SE_A3</title>
     <meta name="description" content="" />
+    
     <script>
         var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
         
@@ -14,18 +15,31 @@
            socket.send("page");
         }
         
-        function loginPage()
-        {
-            
-        }
+        
     </script>
+     <style>
+        body {background-color: #60d145}
+        a:link, a:visited {
+            background-color: lightgrey;
+            color: black;
+            padding: 2px 5px;
+            text-align: center; 
+            text-decoration: none;
+            display: inline-block;
+            border-style: solid;
+            border-width: 2px;
+        }
+
+        a:hover, a:active {
+            background-color: grey;
+        }
+        
+    </style>
   </head>
   <body class="">
     <h1>Welcome to the Stock Tracker</h1>
     <h2>Please select if you are a new or returning user</h2>
     <a href="${pageContext.request.contextPath}/pages/NewUser.jsp" >New User</a>
-    <br/>
-    <br/>
     <a href="${pageContext.request.contextPath}/pages/LoginForm.jsp" >Returning User</a>
   </body>
 </html>
