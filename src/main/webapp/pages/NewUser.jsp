@@ -22,16 +22,47 @@
                     return ok
                 }
                 
-                function login (userName)
+                function login ()
                 {
+                    var userName =  document.getElementById ("uname").value;
+                    //hash it then pass it
+                    hashPass();
+                    var password = document.getElementById ("pass").value;
+                    
+                    var loginInfo = {
+                        action: "newUser"
+                        user: userName,
+                        pass: password
+                    };
+                    
+                    socket.send(JSON.stringify(loginInfo));
+                
                     document.cookie = "username=" + userName;
                     
                     document.getElementById('redirect').innerHTML = "<a href=\"${pageContext.request.contextPath}/pages/MainPage.jsp\" ><h3>Login Successful. Click to continue</h3></a>";
                 }
         </script>
+        <style>
+            body {background-color: #60d145;}
+            a:link, a:visited {
+               background-color: lightgrey;
+                color: black;
+                padding: 2px 5px;
+                text-align: center; 
+                text-decoration: none;
+                display: inline-block;
+                border-style: solid;
+                border-width: 2px;
+            }
+
+            a:hover, a:active {
+                background-color: #c97208;
+            }
+        
+    </style>
     </head>
     <body>
-        <form onsubmit="hashPass()"action="/login.php" method = "post">
+        <form onsubmit="login()"action="/login.php" method = "post">
 	
             <div class="container">
                 <h1>Please enter your username and password to create an account</h1>
