@@ -93,7 +93,7 @@ public class SqlConnecter {
     
     public void insertData(String name, String ticker, int cost)
     {
-        String insert = "INSERT INTO  "+ this.dbName +".stock VALUES (NULL ,  '"+ cost +"', '"+ name +"', '"+ ticker +"')";
+        String insert = "INSERT INTO  "+ this.dbName +".stock VALUES (default ,  '"+ cost +"', '"+ name +"', '"+ ticker +"')";
         try
         {
             this.stmt.execute(insert);
