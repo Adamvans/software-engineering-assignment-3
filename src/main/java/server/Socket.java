@@ -24,7 +24,7 @@ public class Socket {
     @OnOpen
     public void open(Session session) 
     {  
-       conn.insertUser("testuser", "testpassword");
+        conn.insertData("this is a", "test", 500);
     }
     
     @OnClose
@@ -42,6 +42,6 @@ public class Socket {
     @OnMessage
     public void handleMessage(String message, Session session) throws IOException 
     {
-        conn.insertUser(message, message);
+        
     }
 }
