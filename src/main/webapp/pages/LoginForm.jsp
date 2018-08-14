@@ -21,11 +21,31 @@
                     return ok
                 }
                 
+                socket.onmessage = function (event)
+                {
+                    
+                    var result = event.data;
+                    alert (result);
+                    
+                    if (results === "match")
+                    {
+                        document.getElementById('redirect').innerHTML = "<a href=\"${pageContext.request.contextPath}/pages/MainPage.jsp\" ><h3>Login Successful. Click to continue</h3></a>";
+
+                    }
+                    if (results === "dontMatch")
+                    {
+                        alert("Username or Password is incorrect please try again");
+                    }
+                    
+                    document.cookie = "username=" + userName;
+
+                    
+                }
                 function login ()
                 {
                     var userName =  document.getElementById ("uname").value;
                     //hash it then pass it
-                    hashPass();
+                    //hashPass();
                     var password = document.getElementById ("pass").value;
                     
                     var loginInfo = {
@@ -34,11 +54,7 @@
                         pass: password
                     };
                     
-                    socket.send(JSON.stringify(loginInfo));
-                
-                    document.cookie = "username=" + userName;
-                    
-                    document.getElementById('redirect').innerHTML = "<a href=\"${pageContext.request.contextPath}/pages/MainPage.jsp\" ><h3>Login Successful. Click to continue</h3></a>";
+                    socket.send(JSON.stringify(loginInfo));                   
                 }
         </script>
         <style>
