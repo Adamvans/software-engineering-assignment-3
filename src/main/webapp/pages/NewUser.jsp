@@ -10,23 +10,24 @@
         
         <script src="pages/jsSHA-2.3.1/src/sha.js" type = "text/javascript"></script>
         
-        <script>	
-                function hashPass()
-                {      
-                    alert("Hash called");
-                    var password = document.getElementById ("pass").value;
-                    
-                    alert(password);
-                   
-                    var shaObj = new jsSHA("SHA-256", "TEXT");
-                    shaObj.update(password);
-                    var hash = shaObj.getHash("HEX");
-                    
-                    alert(hash);
-                    document.getElementById("pass").value = hash;
-                    
-                    return ok; 
-                }
+        <script>
+            var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
+//                function hashPass()
+//                {      
+//                    alert("Hash called");
+//                    var password = document.getElementById ("pass").value;
+//                    
+//                    alert(password);
+//                   
+//                    var shaObj = new jsSHA("SHA-256", "TEXT");
+//                    shaObj.update(password);
+//                    var hash = shaObj.getHash("HEX");
+//                    
+//                    alert(hash);
+//                    document.getElementById("pass").value = hash;
+//                    
+//                    return ok; 
+//                }
                 
                 function login()
                 {                    
@@ -42,6 +43,7 @@
                         pass: password
                     };
                     
+                    //document.getElementById("answer").innerHTML += JSON.stringify(loginInfo);
                     socket.send(JSON.stringify(loginInfo));
                 
                     document.cookie = "username=" + userName;
@@ -91,5 +93,7 @@
             <div id ="redirect">
                 
             </div>
+            
+            <h2><span id = "answer"></span></h2>
     </body>
 </html>

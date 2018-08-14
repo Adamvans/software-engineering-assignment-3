@@ -26,12 +26,8 @@ import javax.json.JsonReader;
  * @author Ethgar
  */
 @ServerEndpoint("/server")
-public class Socket {
-
-   
-    StockPicker pick = new StockPicker();
-    JsonArrayBuilder prices = Json.createArrayBuilder();
-
+public class Socket 
+{
     SqlConnecter conn;
 
     
@@ -40,6 +36,7 @@ public class Socket {
     @OnOpen
     public void open(Session session) 
     {  
+
     }
     
     @OnClose
@@ -55,12 +52,10 @@ public class Socket {
     }
     
     @OnMessage
-    public void handleMessage(String message, Session session) throws IOException, Exception 
+    public void handleMessage(String message, Session session) 
     {
-
         JsonReader reader = Json.createReader(new StringReader(message));
         JsonObject jsonMessage = reader.readObject();
-            
         if ("existingUser".equals(jsonMessage.getString("action"))) 
         {
             String user = jsonMessage.getString("user");
@@ -74,11 +69,10 @@ public class Socket {
             {
                session.getAsyncRemote().sendText("DontMatch"); 
             }
-
-            if ("newUser".equals(jsonMessage.getString("action"))) 
-            {
-                conn.insertUser(jsonMessage.getString("user"), jsonMessage.getString("pass"));
-            }
+        }
+        if ("newUser".equals(jsonMessage.getString("action"))) 
+        {
+            conn.insertUser(jsonMessage.getString("user"), jsonMessage.getString("pass"));
         }
         
         
