@@ -107,6 +107,7 @@ public class SqlConnecter {
     
     public void insertUser(String username, String password)
     {
+
         String insert = "INSERT INTO  "+ this.dbName +".users VALUES (default ,  '"+ username +"', '"+ password +"')";
         try
         {
@@ -117,6 +118,7 @@ public class SqlConnecter {
             String error = "cant insert into: " + e.getMessage();
             System.err.println(error);
         }
+
     }
     
     public JsonObject getData()

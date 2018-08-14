@@ -14,6 +14,12 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
 
 /**
  *
@@ -23,13 +29,14 @@ import javax.websocket.server.ServerEndpoint;
 public class Socket 
 {
     SqlConnecter conn;
+
     
     public Socket(){this.conn = new SqlConnecter();}
     
     @OnOpen
     public void open(Session session) 
     {  
-        System.out.print("hi");
+
     }
     
     @OnClose
@@ -49,7 +56,6 @@ public class Socket
     {
         JsonReader reader = Json.createReader(new StringReader(message));
         JsonObject jsonMessage = reader.readObject();
-           
         if ("existingUser".equals(jsonMessage.getString("action"))) 
         {
             String user = jsonMessage.getString("user");
@@ -68,5 +74,40 @@ public class Socket
         {
             conn.insertUser(jsonMessage.getString("user"), jsonMessage.getString("pass"));
         }
+        
+        
+        
+        if("getStock".equals(jsonMessage.getString("action")))
+        {
+             JsonReader readstock = Json.createReader(new StringReader(message));
+        
+             JsonArray jsonstock = readstock.readArray();
+         
+        System.out.println(jsonstock);
+         
+       
+         
+       for(int i =0; i < jsonstock.size(); i++)
+       {
+        
+           String test = jsonstock.getString(i);
+           
+           
+            System.out.println(pick.getStockPrice(test));
+            
+           
+                 prices.add(pick.getStockPrice(test));
+            
+            
+       }
+       
+       JsonArray price = prices.build();
+         
+        System.out.println(price);
+        
+        session.getBasicRemote().sendObject(price);
+        
+        }
+
     }
 }
