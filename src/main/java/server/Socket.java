@@ -20,7 +20,8 @@ import javax.websocket.server.ServerEndpoint;
  * @author Ethgar
  */
 @ServerEndpoint("/server")
-public class Socket {
+public class Socket 
+{
     SqlConnecter conn;
     
     public Socket(){this.conn = new SqlConnecter();}
@@ -28,7 +29,7 @@ public class Socket {
     @OnOpen
     public void open(Session session) 
     {  
-        
+        System.out.print("hi");
     }
     
     @OnClose
@@ -44,11 +45,11 @@ public class Socket {
     }
     
     @OnMessage
-    public void handleMessage(String message, Session session) throws IOException 
+    public void handleMessage(String message, Session session) 
     {
         JsonReader reader = Json.createReader(new StringReader(message));
-            JsonObject jsonMessage = reader.readObject();
-            
+        JsonObject jsonMessage = reader.readObject();
+           
         if ("existingUser".equals(jsonMessage.getString("action"))) 
         {
             String user = jsonMessage.getString("user");
@@ -62,11 +63,10 @@ public class Socket {
             {
                session.getAsyncRemote().sendText("DontMatch"); 
             }
-
-            if ("newUser".equals(jsonMessage.getString("action"))) 
-            {
-                conn.insertUser(jsonMessage.getString("user"), jsonMessage.getString("pass"));
-            }
+        }
+        if ("newUser".equals(jsonMessage.getString("action"))) 
+        {
+            conn.insertUser(jsonMessage.getString("user"), jsonMessage.getString("pass"));
         }
     }
 }

@@ -6,7 +6,21 @@
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
         <title>Login</title>
         <script src="jsSHA-2.3.1/src/sha.js" type = "text/javascript"></script>
-        <script>	
+        <script>
+                var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
+                
+                socket.onmessage = function (event)  
+                {
+                    if(event.data == "Match")
+                    {
+                        document.getElementById('redirect').innerHTML = "<a href=\"${pageContext.request.contextPath}/pages/MainPage.jsp\" ><h3>Login Successful. Click to continue</h3></a>";
+                    }
+                    else if(event.data == "DontMatch")
+                    {
+                        document.getElementById('redirect').innerHTML = "login failed"
+                    }
+                    
+                }
                 function hashPass()
                 {
                     var userName = document.getElementById ("uname").value;
@@ -25,11 +39,11 @@
                 {
                     var userName =  document.getElementById ("uname").value;
                     //hash it then pass it
-                    hashPass();
+                    //hashPass();
                     var password = document.getElementById ("pass").value;
                     
                     var loginInfo = {
-                        action: "existingUser"
+                        action: "existingUser",
                         user: userName,
                         pass: password
                     };
@@ -38,7 +52,7 @@
                 
                     document.cookie = "username=" + userName;
                     
-                    document.getElementById('redirect').innerHTML = "<a href=\"${pageContext.request.contextPath}/pages/MainPage.jsp\" ><h3>Login Successful. Click to continue</h3></a>";
+                    return false;
                 }
         </script>
         <style>
@@ -61,7 +75,7 @@
     </style>
     </head>
     <body>
-        <form onsubmit="login()"action="/login.php" method = "post">
+        <form onsubmit="return login()">
 	
             <div class="container">
                 <h1>Please enter your username and password to login</h1>

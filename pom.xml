@@ -126,14 +126,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <servlet>
-     <servlet-name>LoginForm</servlet-name>
-     <jsp-file>LoginForm.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-         <servlet-name>LoginForm</servlet-name>
-         <url-pattern>/LoginFormJsp</url-pattern>
-    </servlet-mapping>
         <finalName>ROOT</finalName>
     </build>
 </project>

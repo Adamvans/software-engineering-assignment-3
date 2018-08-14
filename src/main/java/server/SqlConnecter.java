@@ -155,12 +155,13 @@ public class SqlConnecter {
         {
             while (this.rs.next())
             {
-                builder.add(rs.getString("username"),rs.getString("password"));
+                builder.add(rs.getString("name"),rs.getString("password"));
             }
         } 
         catch (SQLException ex) 
         {
-            System.err.println("SQL query failed: " + ex.getMessage());
+            String error = "SQL result failed: " + ex.getMessage();
+            System.err.println(error);
         }
                 
         JsonObject addMessage = builder.build();
