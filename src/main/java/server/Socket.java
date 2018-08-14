@@ -56,13 +56,12 @@ public class Socket {
                 String password = returnmassage .getString(user);
                 if(password.equals(jsonMessage.getString("pass")))
                 {
-                    session.getAsyncRemote().sendText("passwords match");
+                    session.getAsyncRemote().sendText("Match");
                 }
                 else
                 {
-                   session.getAsyncRemote().sendText("passwords dont match"); 
+                   session.getAsyncRemote().sendText("DontMatch"); 
                 }
-            }
             
             if ("newUser".equals(jsonMessage.getString("action"))) 
             {
