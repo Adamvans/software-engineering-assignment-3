@@ -19,6 +19,10 @@ import java.util.concurrent.TimeUnit;
 public class StockPicker 
 {
     double price = -1;
+
+   
+    
+    
     //---------------------------------------------------------------------------------
     //returns a -1 on failure
     public double getStockPrice (String symbol) throws Exception
@@ -68,6 +72,7 @@ public class StockPicker
             try
             {
                 price = Double.parseDouble(inputLine);
+                
             }
             catch (NumberFormatException e)
             {

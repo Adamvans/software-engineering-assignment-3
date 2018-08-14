@@ -83,14 +83,14 @@ public class SqlConnecter {
     public void insertUser(String username, String password)
     {
         String insert = "INSERT INTO  `epiz_22050198_stocks`.`users` (`id` ,`username` , `password`) VALUES (NULL ,  '"+ username +"', '"+ password +"')";
-        try
-        {
-            this.stmt.execute(insert);
-        }
-        catch(SQLException e)
-        {
-            System.err.println("SQL insert failed: " + e.getMessage());
-        }
+//        try
+//        {
+//            stmt.execute(insert);
+//        }
+//        catch(SQLException e)
+//        {
+//            System.err.println("SQL insert failed: " + e.getMessage());
+//        }
     }
     
     public void getData()
