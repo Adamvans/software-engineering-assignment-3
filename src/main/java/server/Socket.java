@@ -29,7 +29,8 @@ import javax.json.JsonReader;
 public class Socket 
 {
     SqlConnecter conn;
-
+    JsonArrayBuilder prices = Json.createArrayBuilder();
+    StockPicker pick = new StockPicker();
     
     public Socket(){this.conn = new SqlConnecter();}
     
@@ -52,7 +53,7 @@ public class Socket
     }
     
     @OnMessage
-    public void handleMessage(String message, Session session) 
+    public void handleMessage(String message, Session session) throws Exception 
     {
         JsonReader reader = Json.createReader(new StringReader(message));
         JsonObject jsonMessage = reader.readObject();
