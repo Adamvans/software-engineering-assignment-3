@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import javax.json.Json;
@@ -24,17 +27,19 @@ import javax.json.JsonReader;
  */
 @ServerEndpoint("/server")
 public class Socket {
-    SqlConnecter conn = new SqlConnecter();
+
+   
     StockPicker pick = new StockPicker();
     JsonArrayBuilder prices = Json.createArrayBuilder();
+
+    SqlConnecter conn;
+
     
-    public Socket(){}
+    public Socket(){this.conn = new SqlConnecter();}
     
     @OnOpen
     public void open(Session session) 
     {  
-       //conn.insertUser("testuser", "testpassword");
-       
     }
     
     @OnClose
@@ -52,19 +57,46 @@ public class Socket {
     @OnMessage
     public void handleMessage(String message, Session session) throws IOException, Exception 
     {
-     
+
         JsonReader reader = Json.createReader(new StringReader(message));
+        JsonObject jsonMessage = reader.readObject();
+            
+        if ("existingUser".equals(jsonMessage.getString("action"))) 
+        {
+            String user = jsonMessage.getString("user");
+            JsonObject returnmassage = conn.getPassword(user);
+            String password = returnmassage .getString(user);
+            if(password.equals(jsonMessage.getString("pass")))
+            {
+                session.getAsyncRemote().sendText("Match");
+            }
+            else
+            {
+               session.getAsyncRemote().sendText("DontMatch"); 
+            }
+
+            if ("newUser".equals(jsonMessage.getString("action"))) 
+            {
+                conn.insertUser(jsonMessage.getString("user"), jsonMessage.getString("pass"));
+            }
+        }
         
-        JsonArray jsonMessage = reader.readArray();
+        
+        
+        if("getStock".equals(jsonMessage.getString("action")))
+        {
+             JsonReader readstock = Json.createReader(new StringReader(message));
+        
+             JsonArray jsonstock = readstock.readArray();
          
-        System.out.println(jsonMessage);
+        System.out.println(jsonstock);
          
        
          
-       for(int i =0; i < jsonMessage.size(); i++)
+       for(int i =0; i < jsonstock.size(); i++)
        {
         
-           String test = jsonMessage.getString(i);
+           String test = jsonstock.getString(i);
            
            
             System.out.println(pick.getStockPrice(test));
@@ -81,6 +113,7 @@ public class Socket {
         
         session.getBasicRemote().sendObject(price);
         
-         
+        }
+
     }
 }

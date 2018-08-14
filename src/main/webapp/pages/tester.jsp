@@ -41,11 +41,11 @@ function test()
                     e.preventDefault();
 
   // Retrieve the message from the textarea.
-            var symOne = document.getElementById("symOne").value;
-                 var symTwo = document.getElementById("symTwo").value;
-                 var symThree = document.getElementById("symThree").value;
-
-            var stocks = [symOne, symTwo, symThree];
+                var symOne = document.getElementById("symOne").value;
+                var symTwo = document.getElementById("symTwo").value;
+                var symThree = document.getElementById("symThree").value;
+                var action = "getStock";
+            var stocks = [action, symOne, symTwo, symThree];
   // Send the message through the WebSocket.
   
       
