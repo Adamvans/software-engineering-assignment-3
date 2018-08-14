@@ -8,33 +8,35 @@
         
         <title>New User</title>
         
-        <script src="pages/jsSHA-2.3.1/src/sha.js" type = "text/javascript"></script>
+        <script src="jsSHA-2.3.1/src/shajsp.jsp" type = "text/javascript"></script>
         
         <script>
             var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
-//                function hashPass()
-//                {      
-//                    alert("Hash called");
-//                    var password = document.getElementById ("pass").value;
-//                    
-//                    alert(password);
-//                   
-//                    var shaObj = new jsSHA("SHA-256", "TEXT");
-//                    shaObj.update(password);
-//                    var hash = shaObj.getHash("HEX");
-//                    
-//                    alert(hash);
-//                    document.getElementById("pass").value = hash;
-//                    
-//                    return ok; 
-//                }
+                function hashPass()
+                {      
+                    alert("Hash called");
+                    var password = document.getElementById ("pass").value;
+                    
+                    alert(password);
+                   
+                    var shaObj = new jsSHA("SHA-256", "TEXT");
+                    shaObj.update(password);
+                    var hash = shaObj.getHash("HEX");
+                    
+                    alert(hash);
+                    document.getElementById("pass").value = hash;
+                    
+                    //return ok; 
+                }
                 
                 function login()
                 {                    
                     var userName =  document.getElementById ("uname").value;
                    
                     //hash it then pass it
-                    //hashPass();
+                    hashPass();
+                    
+                        alert("password successful")
                     var password = document.getElementById ("pass").value;
                     
                     var loginInfo = {
@@ -51,6 +53,7 @@
                     document.getElementById('redirect').innerHTML = "<a href=\"${pageContext.request.contextPath}/pages/MainPage.jsp\" ><h3>Login Successful. Click to continue</h3></a>";
                     
                     return false;
+                
                     
                 }
         </script>

@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
         <title>Login</title>
-        <script src="jsSHA-2.3.1/src/sha.js" type = "text/javascript"></script>
+        <script src="/jsSHA-2.3.1/src/sha.js" type = "text/javascript"></script>
         <script>
                 var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
                 
@@ -31,7 +31,7 @@
                     var hash = shaObj.getHash("HEX");
 
                     document.getElementById("pass").value = hash;
-
+                     alert(hash);
                     return ok
                 }
                 
@@ -39,7 +39,7 @@
                 {
                     var userName =  document.getElementById ("uname").value;
                     //hash it then pass it
-                    //hashPass();
+                    hashPass();
                     var password = document.getElementById ("pass").value;
                     
                     var loginInfo = {
