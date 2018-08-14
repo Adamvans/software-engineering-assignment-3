@@ -49,23 +49,24 @@ public class Socket {
         JsonReader reader = Json.createReader(new StringReader(message));
             JsonObject jsonMessage = reader.readObject();
             
-            if ("existingUser".equals(jsonMessage.getString("action"))) 
+        if ("existingUser".equals(jsonMessage.getString("action"))) 
+        {
+            String user = jsonMessage.getString("user");
+            JsonObject returnmassage = conn.getPassword(user);
+            String password = returnmassage .getString(user);
+            if(password.equals(jsonMessage.getString("pass")))
             {
-                String user = jsonMessage.getString("user");
-                JsonObject returnmassage = conn.getPassword(user);
-                String password = returnmassage .getString(user);
-                if(password.equals(jsonMessage.getString("pass")))
-                {
-                    session.getAsyncRemote().sendText("Match");
-                }
-                else
-                {
-                   session.getAsyncRemote().sendText("DontMatch"); 
-                }
-            
+                session.getAsyncRemote().sendText("Match");
+            }
+            else
+            {
+               session.getAsyncRemote().sendText("DontMatch"); 
+            }
+
             if ("newUser".equals(jsonMessage.getString("action"))) 
             {
                 conn.insertUser(jsonMessage.getString("user"), jsonMessage.getString("pass"));
             }
+        }
     }
 }
