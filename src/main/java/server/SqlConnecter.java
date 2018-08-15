@@ -107,6 +107,7 @@ public class SqlConnecter {
     
     public void insertUser(String username, String password)
     {
+
         String insert = "INSERT INTO  "+ this.dbName +".users VALUES (default ,  '"+ username +"', '"+ password +"')";
         try
         {
@@ -117,6 +118,7 @@ public class SqlConnecter {
             String error = "cant insert into: " + e.getMessage();
             System.err.println(error);
         }
+
     }
     
     public JsonObject getData()
@@ -155,12 +157,13 @@ public class SqlConnecter {
         {
             while (this.rs.next())
             {
-                builder.add(rs.getString("username"),rs.getString("password"));
+                builder.add(rs.getString("name"),rs.getString("password"));
             }
         } 
         catch (SQLException ex) 
         {
-            System.err.println("SQL query failed: " + ex.getMessage());
+            String error = "SQL result failed: " + ex.getMessage();
+            System.err.println(error);
         }
                 
         JsonObject addMessage = builder.build();

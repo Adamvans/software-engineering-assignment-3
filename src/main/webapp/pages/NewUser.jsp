@@ -8,26 +8,21 @@
         
         <title>New User</title>
         
-        <script src="pages/jsSHA-2.3.1/src/sha.js" type = "text/javascript"></script>
+        <script src="jsSHA-2.3.1/src/shajsp.jsp" type = "text/javascript"></script>
         
-        <script>	
-                var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
-                
+        <script>
+            var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
                 function hashPass()
                 {      
-                    alert("Hash called");
                     var password = document.getElementById ("pass").value;
-                    
-                    alert(password);
                    
                     var shaObj = new jsSHA("SHA-256", "TEXT");
                     shaObj.update(password);
                     var hash = shaObj.getHash("HEX");
                     
-                    alert(hash);
                     document.getElementById("pass").value = hash;
                     
-                    return ok; 
+                    //return ok; 
                 }
                 
                 function login()
@@ -35,7 +30,8 @@
                     var userName =  document.getElementById ("uname").value;
                    
                     //hash it then pass it
-                    //hashPass();
+                    hashPass();
+                    
                     var password = document.getElementById ("pass").value;
                     
                     var loginInfo = {
@@ -44,6 +40,7 @@
                         pass: password
                     };
                     
+                    //document.getElementById("answer").innerHTML += JSON.stringify(loginInfo);
                     socket.send(JSON.stringify(loginInfo));
                 
                     document.cookie = "username=" + userName;
@@ -51,6 +48,7 @@
                     document.getElementById('redirect').innerHTML = "<a href=\"${pageContext.request.contextPath}/pages/MainPage.jsp\" ><h3>Login Successful. Click to continue</h3></a>";
                     
                     return false;
+                
                     
                 }
         </script>
@@ -88,9 +86,12 @@
                 <button type="submit" >Login</button>
           </div>
 	</form>
-        <br/>
-       <div id ="redirect">
-
-       </div>
+                <br/>
+            </div>
+            <div id ="redirect">
+                
+            </div>
+            
+            <h2><span id = "answer"></span></h2>
     </body>
 </html>

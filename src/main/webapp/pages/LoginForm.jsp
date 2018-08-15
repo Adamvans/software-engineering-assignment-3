@@ -5,51 +5,40 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
         <title>Login</title>
-        <script src="jsSHA-2.3.1/src/sha.js" type = "text/javascript"></script>
-        <script>	
+        <script src="jsSHA-2.3.1/src/shajsp.jsp" type = "text/javascript"></script>
+        <script>
                 var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
                 
-                function hashPass()
+                socket.onmessage = function (event)  
                 {
-                    var userName = document.getElementById ("uname").value;
+                    if(event.data == "Match")
+                    {
+                        document.getElementById('redirect').innerHTML = "<a href=\"${pageContext.request.contextPath}/pages/MainPage.jsp\" ><h3>Login Successful. Click to continue</h3></a>";
+                    }
+                    else if(event.data == "DontMatch")
+                    {
+                        document.getElementById('redirect').innerHTML = "login failed";
+                    }  
+                }
+                
+                 function hashPass()
+                {      
                     var password = document.getElementById ("pass").value;
-
+                   
                     var shaObj = new jsSHA("SHA-256", "TEXT");
                     shaObj.update(password);
                     var hash = shaObj.getHash("HEX");
-
+                    
                     document.getElementById("pass").value = hash;
-
-                    return ok
+                    
+                    //return ok; 
                 }
                 
-                socket.onmessage = function (event)
-                {
-                    alert("Socket Incoming!");
-                    
-                    var result = event.data;
-                    alert (result);
-                    
-                    if (results === "match")
-                    {
-                        document.getElementById('redirect').innerHTML = "<a href=\"${pageContext.request.contextPath}/pages/MainPage.jsp\" ><h3>Login Successful. Click to continue</h3></a>";
-
-                    }
-                    if (results === "dontMatch")
-                    {
-                        alert("Username or Password is incorrect please try again");
-                    }
-                    
-                    document.cookie = "username=" + userName;
-
-                    
-                }
                 function login ()
                 {
-                    alert("login called");
                     var userName =  document.getElementById ("uname").value;
                     //hash it then pass it
-                    //hashPass();
+                    hashPass();
                     var password = document.getElementById ("pass").value;
                     
                     var loginInfo = {
@@ -59,6 +48,9 @@
                     };
                     
                     socket.send(JSON.stringify(loginInfo));
+                
+                    document.cookie = "username=" + userName;
+                    
                     return false;
                 }
         </script>
@@ -82,8 +74,9 @@
     </style>
     </head>
     <body>
-         <form onsubmit="return login()">
-          <div class="container">
+        <form onsubmit="return login()">
+	
+            <div class="container">
                 <h1>Please enter your username and password to login</h1>
                 <label for="uname"><b>Username</b></label>
                 <input type="text" placeholder="Enter Username" name="uname" id = "uname" required>
