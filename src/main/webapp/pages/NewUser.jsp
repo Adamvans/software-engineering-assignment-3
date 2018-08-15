@@ -11,6 +11,8 @@
         <script src="pages/jsSHA-2.3.1/src/sha.js" type = "text/javascript"></script>
         
         <script>	
+                var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
+                
                 function hashPass()
                 {      
                     alert("Hash called");
@@ -66,7 +68,7 @@
             }
 
             a:hover, a:active {
-                background-color: #c97208;
+                background-color: grey;
             }
         
     </style>
@@ -86,10 +88,9 @@
                 <button type="submit" >Login</button>
           </div>
 	</form>
-                <br/>
-            </div>
-            <div id ="redirect">
-                
-            </div>
+        <br/>
+       <div id ="redirect">
+
+       </div>
     </body>
 </html>

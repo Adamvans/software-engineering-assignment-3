@@ -7,6 +7,8 @@
         <title>Login</title>
         <script src="jsSHA-2.3.1/src/sha.js" type = "text/javascript"></script>
         <script>	
+                var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
+                
                 function hashPass()
                 {
                     var userName = document.getElementById ("uname").value;
@@ -23,6 +25,7 @@
                 
                 socket.onmessage = function (event)
                 {
+                    alert("Socket Incoming!");
                     
                     var result = event.data;
                     alert (result);
@@ -43,18 +46,20 @@
                 }
                 function login ()
                 {
+                    alert("login called");
                     var userName =  document.getElementById ("uname").value;
                     //hash it then pass it
                     //hashPass();
                     var password = document.getElementById ("pass").value;
                     
                     var loginInfo = {
-                        action: "existingUser"
+                        action: "existingUser",
                         user: userName,
                         pass: password
                     };
                     
-                    socket.send(JSON.stringify(loginInfo));                   
+                    socket.send(JSON.stringify(loginInfo));
+                    return false;
                 }
         </script>
         <style>
@@ -71,15 +76,14 @@
             }
 
             a:hover, a:active {
-                background-color: #c97208;
+                background-color: grey;
             }
         
     </style>
     </head>
     <body>
-        <form onsubmit="login()"action="/login.php" method = "post">
-	
-            <div class="container">
+         <form onsubmit="return login()">
+          <div class="container">
                 <h1>Please enter your username and password to login</h1>
                 <label for="uname"><b>Username</b></label>
                 <input type="text" placeholder="Enter Username" name="uname" id = "uname" required>
@@ -89,13 +93,12 @@
                 <input type="password" placeholder="Enter Password" name="pass" id="pass" required>
                 <br/>
                 <br/>
-                <button type="submit">Login</button>
-            </div>
-            
-            <div id ="redirect">
-                
-                
-            </div>
+                <button type="submit" >Login</button>
+          </div>
 	</form>
+         <br/>
+       <div id ="redirect">
+
+       </div>
     </body>
 </html>
