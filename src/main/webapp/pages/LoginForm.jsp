@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
         <title>Login</title>
-        <script src="/jsSHA-2.3.1/src/sha.js" type = "text/javascript"></script>
+        <script src="jsSHA-2.3.1/src/shajsp.jsp" type = "text/javascript"></script>
         <script>
                 var socket = new WebSocket("ws://localhost:8080/SE_A3/server");
                 
@@ -17,22 +17,21 @@
                     }
                     else if(event.data == "DontMatch")
                     {
-                        document.getElementById('redirect').innerHTML = "login failed"
-                    }
-                    
+                        document.getElementById('redirect').innerHTML = "login failed";
+                    }  
                 }
-                function hashPass()
-                {
-                    var userName = document.getElementById ("uname").value;
+                
+                 function hashPass()
+                {      
                     var password = document.getElementById ("pass").value;
-
+                   
                     var shaObj = new jsSHA("SHA-256", "TEXT");
                     shaObj.update(password);
                     var hash = shaObj.getHash("HEX");
-
+                    
                     document.getElementById("pass").value = hash;
-                     alert(hash);
-                    return ok
+                    
+                    //return ok; 
                 }
                 
                 function login ()
@@ -69,7 +68,7 @@
             }
 
             a:hover, a:active {
-                background-color: #c97208;
+                background-color: grey;
             }
         
     </style>
@@ -87,13 +86,12 @@
                 <input type="password" placeholder="Enter Password" name="pass" id="pass" required>
                 <br/>
                 <br/>
-                <button type="submit">Login</button>
-            </div>
-            
-            <div id ="redirect">
-                
-                
-            </div>
+                <button type="submit" >Login</button>
+          </div>
 	</form>
+         <br/>
+       <div id ="redirect">
+
+       </div>
     </body>
 </html>
